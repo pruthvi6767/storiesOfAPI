@@ -20,33 +20,46 @@ console.log(process.cwd())
 // method2 read by create readstream and by each line 
 var oStream = new stream()
 var iStream = fs.createReadStream(path.join(__dirname,'..','sample_product_data.tsv'), {flags: 'r',encoding: 'utf8', autoClose: true})
-var line_data = readline.createInterface(iStream, oStream)
 console.time()
+var line_data = readline.createInterface(iStream, oStream)
 line_data.on('line', (line) => {
     let product = line.split('\t')
-    console.log(productJSON(product))
-    products.push()
-    // console.log(product)
+    products.push(productJSON(product))
+    //console.log(product)
 })
-line_data.on('close', () => { 
+// iStream.on('end', () => {
+//     console.log(products)
+//     console.timeEnd()
+//     line_data.close()
+// })
+line_data.on('close', () => {
+    console.log(products)
+    console.timeEnd()
     line_data.close()
-    console.log(products.slice(0,8))
-
 })
 
 
-
-function productJSON(...values) {
-    let product_json = {
-        "productId": `${values[0]}?:""`,
-        "title": `${values[1]}?:""`,
-        "brandId": `${values[2]}?:""`,
-        "brandName": `${values[3]}?:""`,
-        "categoryId": `${values[4]}?:""`,
-        "categoryName": `${values[5]}?:""`  
-    }
+function productJSON(items) {
+    //console.log(items)
+    let values = items.map( (value) => {
+        data = String(value)
+        if(!data) {
+            data = ""
+        }
+        if(data.includes('"') ) {
+            data.replace('"', '\"')
+            console.log(data)
+        }
+        return data
+    })
+    //console.log(values)
+    let product_json = JSON.parse(`{"productId": "${values[0]}","title": "${values[1]}",
+        "brandId": "${values[2]}","brandName": "${values[3]}","categoryId": "${values[4]}",
+        "categoryName": "${values[5]}"}`)
     return product_json
 }
+
+
 
 
 

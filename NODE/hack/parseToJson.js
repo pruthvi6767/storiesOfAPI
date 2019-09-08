@@ -23,7 +23,7 @@ var iStream = fs.createReadStream(path.join(__dirname,'..','sample_product_data.
 console.time()
 var line_data = readline.createInterface(iStream, oStream)
 line_data.on('line', (line) => {
-    let product = line.split('\t')
+    let product = line.replace('"', '\"').trim().split("\t")
     products.push(productJSON(product))
     //console.log(product)
 })
@@ -47,9 +47,20 @@ function productJSON(items) {
             data = ""
         }
         if(data.includes('"') ) {
-            data.replace('"', '\"')
+            data = data.replace(/"/g, '\\"' )
             console.log(data)
         }
+        if(data.includes("\'") ) {
+            data = data.replace(/\\'/g, "'")
+            console.log(data)
+        }
+
+        if(data.includes("\\") ) {
+            data = data.replace(/\\ |\\[a-zA-Z]/g, "")
+            console.log(data)
+        }
+       
+
         return data
     })
     //console.log(values)

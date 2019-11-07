@@ -2,6 +2,6 @@
 .idea/
 node_modules/
 sl-assess-simple-api_*.zip
-.vscode
-/**.vscode
+.vscode/
 .vscode/**
+

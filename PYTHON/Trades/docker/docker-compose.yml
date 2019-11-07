@@ -1,0 +1,11 @@
+version: "3.3"
+services:
+  htop1:
+    build: .
+    image: htop
+    tty: true
+  htop2:
+    build: .
+    image: htop
+    tty: true
+      

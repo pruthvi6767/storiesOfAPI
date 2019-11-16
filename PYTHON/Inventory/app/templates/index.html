@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+    <div>
+        <table>
+            <tr>
+                <th>Item Id</th>
+                <th>Name</th>
+                <th>Quantity</th>
+            </tr>
+            {% for item in items %}
+            <tr>
+                <td style="padding: 1em 1em ">{{item.id}}</td>
+                <td style="padding: 1em 1em "> {{ item.name }}</td>
+                <td style="padding: 1em 1em "> {{ item.quantity }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div style="margin: 20px 20px; float: left;">
+        <form method="POST" action="/index" enctype="application/x-www-form-urlencoded">
+            <label style="margin:10px 10px">Enter Item Code</label>
+            <input type="number" name="id" value=0 style="display: block;margin:10px 10px">
+            <label style="margin:10px 10px">Enter Item Quantity</label>
+            <input type="number" name="quantity" value=0 style="margin:10px 10px;display: block">
+            <input type="submit" style="margin:10px 10px;display: block"></input>
+            <p> {{ message }} </p>
+            <p {{ error }} style="color: red;margin:10px 10px"> Invalid ID or Quantity </p>
+        </form>
+    </div>
+</body>
+
+</html>

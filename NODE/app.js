@@ -67,4 +67,3 @@ someAsyncOperation(() => {
 
 // Promise
 var prom = new Promise(resolve,reject)
-b
